@@ -1,0 +1,18 @@
+{
+    "type": "package",
+    "name": "mpizenberg/elm-file",
+    "summary": "Alternative from elm/file that can be encoded and passed through ports",
+    "license": "BSD-3-Clause",
+    "version": "1.0.0",
+    "exposed-modules": [
+        "FileValue"
+    ],
+    "elm-version": "0.19.1 <= v < 0.20.0",
+    "dependencies": {
+        "elm/core": "1.0.1 <= v < 2.0.0",
+        "elm/html": "1.0.0 <= v < 2.0.0",
+        "elm/json": "1.1.0 <= v < 2.0.0",
+        "elm/time": "1.0.0 <= v < 2.0.0"
+    },
+    "test-dependencies": {}
+}
