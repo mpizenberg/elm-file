@@ -4,6 +4,7 @@ import Browser
 import Element exposing (Element)
 import Element.Border
 import Element.Font
+import Element.Input
 import FeatherIcons as Icons
 import FileValue as File exposing (File)
 import Html exposing (Html)
@@ -30,6 +31,7 @@ type Msg
     = DragOver File (List File)
     | Drop File (List File)
     | DragLeave
+    | Reset
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -42,6 +44,9 @@ update msg model =
             ( DroppedSomeFiles file otherFiles, Cmd.none )
 
         ( DragLeave, _ ) ->
+            ( Idle, Cmd.none )
+
+        ( Reset, _ ) ->
             ( Idle, Cmd.none )
 
 
@@ -116,4 +121,9 @@ viewDroppedFiles : File -> List File -> Element Msg
 viewDroppedFiles file otherFiles =
     Element.column
         [ Element.centerX, Element.centerY, Element.spacing 16 ]
-        (List.map (Element.text << .name) (file :: otherFiles))
+        (Element.Input.button [ Element.centerX ]
+            { onPress = Just Reset
+            , label = Element.el [ Element.Font.underline ] (Element.text "RESET")
+            }
+            :: List.map (Element.text << .name) (file :: otherFiles)
+        )
