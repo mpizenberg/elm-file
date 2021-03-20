@@ -197,28 +197,6 @@ onWithId id event msg =
         |> Html.Events.custom event
 
 
-onCurrent : String -> msg -> Html.Attribute msg
-onCurrent event msg =
-    currentTargetDecoder
-        |> Decode.andThen
-            (\( currentTarget, target ) ->
-                if Debug.log "currentTarget" currentTarget == Debug.log "target" target then
-                    Decode.succeed msg
-
-                else
-                    Decode.fail "Wrong target"
-            )
-        |> Decode.map (\message -> { message = message, stopPropagation = True, preventDefault = True })
-        |> Html.Events.custom event
-
-
-currentTargetDecoder : Decoder ( Value, Value )
-currentTargetDecoder =
-    Decode.map2 Tuple.pair
-        (Decode.field "currentTarget" Decode.value)
-        (Decode.field "target" Decode.value)
-
-
 
 -- Helper functions
 
