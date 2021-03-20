@@ -35,7 +35,7 @@ import Time
 
 The file is store as its raw JavaScript value.
 If needed, it is possible to convert it to the `File`
-type defined in [`elm/type`](/packages/elm/file)
+type defined in [`elm/file`](/packages/elm/file/latest)
 simply by using the decoder defined there on the `value` field here.
 
 -}
@@ -134,7 +134,23 @@ loadMultipleFiles msgTag =
 -- Drop files
 
 
-{-| Create attributes for a file dropping area.
+{-| Create Html attributes for a file dropping area.
+
+    type Msg
+        = DragOver File (List File)
+        | Drop File (List File)
+        | DragLeave
+
+    dropConfig =
+        { onOver = DragOver
+        , onDrop = Drop
+        , onLeave = Just { id = "FileDropArea", msg = DragLeave }
+        }
+
+    view _ =
+        div (FileValue.onDrop dropConfig)
+            [ text "Drop files here" ]
+
 -}
 onDrop : DropConfig msg -> List (Html.Attribute msg)
 onDrop config =
