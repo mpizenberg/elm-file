@@ -1,7 +1,7 @@
 {
     "type": "package",
     "name": "mpizenberg/elm-file",
-    "summary": "Alternative from elm/file that can be encoded and passed through ports",
+    "summary": "Alternative to elm/file that can be encoded and passed through ports",
     "license": "BSD-3-Clause",
     "version": "1.0.0",
     "exposed-modules": [
