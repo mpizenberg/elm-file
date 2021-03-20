@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  elm-make:
+    name: Check that the code compiles
+    runs-on: ubuntu-latest
+    env:
+      ELM_HOME: '${{ github.workspace }}/elm-home'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install elm and cache the ELM_HOME directory
+        uses: mpizenberg/elm-tooling-action@v1.1
+        with:
+          cache-key: elm-make-${{ hashFiles('elm-tooling.json', 'elm.json') }}
+          cache-restore-key: elm-make
+
+      - run: elm make
+
+  check-formatting:
+    name: Check formatting
+    runs-on: ubuntu-latest
+    env:
+      ELM_HOME: '${{ github.workspace }}/elm-home'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install elm-format and cache the ELM_HOME directory
+        uses: mpizenberg/elm-tooling-action@v1.1
+        with:
+          cache-key: elm-format-${{ hashFiles('elm-tooling.json') }}
+          cache-restore-key: elm-format
+
+      - run: elm-format src/ --validate
